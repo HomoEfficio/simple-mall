@@ -22,9 +22,8 @@ public class HomeController {
     private ObjectMapper objectMapper;
 
     @GetMapping("/")
-    @ResponseBody
     public String hello() {
-        return "Hello Thymeleaf";
+        return "index";
     }
 
     @GetMapping("/vuejs")
