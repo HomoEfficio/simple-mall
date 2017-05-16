@@ -1,20 +1,25 @@
 <template>
   <div class="well">
     <div class="row">
-      <div class="col-sm-5 text-right">
+      <div class="text-center">
         <img class="logo" src="../assets/reco_logo.png">
-      </div>
-      <div class="col-sm-7 text-left">
         <h1 v-translate>가상 고객 사이트</h1>
       </div>
+    </div>
+    <div class="header">
+      <h1>Vue.js Poster Store</h1>
+      <form class="searchbar" v-on:submit.prevent="onSearch">
+        <input v-model="newSearch" placeholder="Search for posters">
+        <input type="submit" value="Search" class="btn">
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    locales: require('../i18n/Hello.js')
-  }
+export default {
+  locales: require('../i18n/Hello.js')
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
