@@ -12,10 +12,8 @@
               <router-link to="/">Home</router-link>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-middle">
-            <li>{{ uid }}</li>
-          </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item uid-header">UID: {{ uid }}</li>
             <li>
               <router-link to="/signup" class="nav-item nav-link"> Sign Up </router-link>
             </li>
@@ -33,3 +31,11 @@ export default {
     ]
 }
 </script>
+
+<style lang="sass" scoped>
+.uid-header
+  font-size: 1.5em
+  background: seagreen
+  color: yellow
+  padding: 10px
+</style>
