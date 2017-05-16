@@ -3,7 +3,7 @@
     <div class="row">
       <div class="text-center">
         <img class="logo" src="../assets/reco_logo.png">
-        <h1 v-translate>가상 고객 사이트</h1>
+        <h1 v-translate>가상 고객 사이트 {{ uid }}</h1>
       </div>
     </div>
     <div class="header">
@@ -18,7 +18,10 @@
 
 <script>
 export default {
-  locales: require('../i18n/Hello.js')
+  locales: require('../i18n/Hello.js'),
+  props: [
+      'uid'
+  ]
 }
 </script>
 

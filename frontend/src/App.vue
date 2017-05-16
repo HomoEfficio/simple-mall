@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container text-center">
     <br />
-    <navbar></navbar>
+    <navbar :uid="uid"></navbar>
     <br />
     <div v-if="hasUID()">
-      <router-view></router-view>
+      <router-view :uid="uid"></router-view>
     </div>
     <div v-else>
       <h2>Add '?uid=UID_VALUE' at the end of the URL</h2>

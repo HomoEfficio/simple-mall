@@ -12,6 +12,9 @@
               <router-link to="/">Home</router-link>
             </li>
           </ul>
+          <ul class="nav navbar-nav navbar-middle">
+            <li>{{ uid }}</li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
               <router-link to="/signup" class="nav-item nav-link"> Sign Up </router-link>
@@ -24,6 +27,9 @@
 </template>
 
 <script>
-  export default {
-  }
+export default {
+    props: [
+        'uid'
+    ]
+}
 </script>
