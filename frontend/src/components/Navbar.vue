@@ -13,7 +13,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item uid-header">UID: {{ uid }}</li>
+            <li class="nav-item reco-uid-header">RECO_UID : {{ recoUid }}</li>
             <li>
               <router-link to="/signup" class="nav-item nav-link"> Sign Up </router-link>
             </li>
@@ -27,13 +27,13 @@
 <script>
 export default {
     props: [
-        'uid'
+        'recoUid'
     ]
 }
 </script>
 
 <style lang="sass" scoped>
-.uid-header
+.reco-uid-header
   font-size: 1.5em
   background: seagreen
   color: yellow
