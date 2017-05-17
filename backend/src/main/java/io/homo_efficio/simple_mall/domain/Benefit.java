@@ -17,5 +17,9 @@ public class Benefit implements Serializable {
 
     private String discount;
 
-    private String milage;
+    private String mileage;
+
+    private String point;
+
+    private String inFree;
 }
