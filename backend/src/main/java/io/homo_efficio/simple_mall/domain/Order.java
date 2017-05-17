@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,17 +14,16 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Member extends BaseEntity implements Serializable {
+public class Order extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "member_id")
     private Long id;
 
-    @NotNull
-    @Column(unique = true)
-    private String uid;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member orderer;
 
-    @OneToMany(mappedBy = "orderer")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "order")
+    private List<Product> products;
 }
