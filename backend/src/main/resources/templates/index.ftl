@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Simple Mall</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div id="app">
@@ -83,21 +83,20 @@ new Vue({
             }
         },
         onSearch() {
-            console.log('Search NOW!!!');
-//            if (this.newSearch.length) {
-//                this.items = [];
-//                this.loading = true;
-//                this.$http.get('/search/'.concat(this.newSearch))
-//                        .then(
-//                                function(res) {
-//                                    console.log(res);
-//                                    this.lastSearch = this.newSearch;
-//                                    this.results = res.data;
-//                                    this.appendItems();
-//                                    this.loading = false;
-//                                },
-//                                function() {}
-//                        );
+            if (this.newSearch.length) {
+                this.items = [];
+                this.loading = true;
+                axios.get('/search/'.concat(this.newSearch))
+                        .then(res => {
+                            console.log(res);
+                            this.lastSearch = this.newSearch;
+                            this.results = res.data;
+                            this.appendItems();
+                            this.loading = false;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
 //                this.sendLog('search', {
 //                    service_id: RECO_SERVICE_ID,
 //                    uid: RECO_UID,
@@ -110,12 +109,17 @@ new Vue({
 //                        birthyear: RECO_BIRTHYEAR
 //                    }
 //                });
-//            }
+            }
         },
     },
     computed: {
         noMoreItems: function() {
             return this.items.length == this.results.length && this.results.length > 0
+        }
+    },
+    filters: {
+        currency: function(price) {
+            return '$'.concat(price.toFixed(2));
         }
     },
 });
