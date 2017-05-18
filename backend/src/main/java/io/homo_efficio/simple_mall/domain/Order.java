@@ -21,10 +21,10 @@ public class Order extends BaseEntity implements Serializable {
     @GeneratedValue
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "member_id")
-//    private Member orderer;
-//
-//    @OneToMany(mappedBy = "order")
-//    private List<Product> products;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member orderer;
+
+    @OneToMany(mappedBy = "order")
+    private List<Product> products;
 }

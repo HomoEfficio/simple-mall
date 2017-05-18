@@ -78,10 +78,10 @@ public class Product extends BaseEntity implements Serializable {
 
     private String minorYn;
 
-//    @Embedded
-//    private Benefit benefit;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "order_id")
-//    private Order order;
+    @Embedded
+    private Benefit benefit;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 }

@@ -27,10 +27,10 @@ public class Member extends BaseEntity implements Serializable {
     @Column(unique = true)
     private String uid;
 
-//    @OneToOne
-//    @JoinColumn(name = "basket_id")
-//    private Basket basket;
-//
-//    @OneToMany(mappedBy = "orderer")
-//    private List<Order> orders;
+    @OneToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
+    @OneToMany(mappedBy = "orderer")
+    private List<Order> orders;
 }
