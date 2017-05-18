@@ -17,6 +17,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author homo.efficio@gmail.com
@@ -40,8 +41,8 @@ public class HomeController {
 
     @GetMapping("/search/{keyword}")
     @ResponseBody
-    public DeferredResult<List<Product>> search11st(@PathVariable("keyword") String keyword) {
-        DeferredResult<List<Product>> df = new DeferredResult<>();
+    public DeferredResult<String> search11st(@PathVariable("keyword") String keyword) {
+        DeferredResult<String> df = new DeferredResult<>();
 
         String apiUrl = "http://apis.skplanetx.com/11st/v2/common/products?searchKeyword=" + keyword;
         AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
@@ -57,7 +58,7 @@ public class HomeController {
                     try {
                         SearchResultContainerDto searchResultContainerDto =
                                 caseInsensitiveObjectMapper.readValue(result.getBody(), SearchResultContainerDto.class);
-                        df.setResult(searchResultContainerDto.getProductSearchResponse().getProducts().getProduct());
+                        df.setResult(caseInsensitiveObjectMapper.writeValueAsString(searchResultContainerDto.getProductSearchResponse().getProducts().getProduct()));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -66,8 +67,42 @@ public class HomeController {
                     System.out.println(error);
                 }
         );
+
         return df;
     }
+
+// 아래와 같이 List<Product>를 반환하면 이상하게 클라이언트에 productCode가 넘어가지 않음
+//    @GetMapping("/search/{keyword}")
+//    @ResponseBody
+//    public DeferredResult<List<Product>> search11st(@PathVariable("keyword") String keyword) {
+//        DeferredResult<List<Product>> df = new DeferredResult<>();
+//
+//        String apiUrl = "http://apis.skplanetx.com/11st/v2/common/products?searchKeyword=" + keyword;
+//        AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.set("appKey", "83aeb0b1-94db-3372-9364-22a13e6b6df2");
+//        httpHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+//        httpHeaders.set("Cache-control", "no-cache");
+//        HttpEntity<String> stringHttpEntity = new HttpEntity<>(httpHeaders);
+//
+//        ListenableFuture<ResponseEntity<String>> lFuture = asyncRestTemplate.exchange(apiUrl, HttpMethod.GET, stringHttpEntity, String.class);
+//        lFuture.addCallback(
+//                result -> {
+//                    try {
+//                        SearchResultContainerDto searchResultContainerDto =
+//                                caseInsensitiveObjectMapper.readValue(result.getBody(), SearchResultContainerDto.class);
+//                        df.setResult(searchResultContainerDto.getProductSearchResponse().getProducts().getProduct());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                },
+//                error -> {
+//                    System.out.println(error);
+//                }
+//        );
+//
+//        return df;
+//    }
 
 //    @GetMapping("/search/{keyword}")
 //    @ResponseBody

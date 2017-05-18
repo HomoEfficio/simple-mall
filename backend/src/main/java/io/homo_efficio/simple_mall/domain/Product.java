@@ -25,7 +25,7 @@ public class Product extends BaseEntity implements Serializable {
     private String productName;
 
     @NotNull
-    private String productPrice;
+    private Integer productPrice;
 
     @NotNull
     private String productImage;
