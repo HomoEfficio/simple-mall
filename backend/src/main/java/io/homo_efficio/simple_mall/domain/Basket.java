@@ -21,8 +21,8 @@ public class Basket {
     @Column(name = "basket_id")
     private Long id;
 
-    @OneToOne(mappedBy = "basket")
-    private Member member;
+//    @OneToOne(mappedBy = "basket")
+//    private Member member;
 
     @Embedded
     private List<BasketItem> basketItems;
