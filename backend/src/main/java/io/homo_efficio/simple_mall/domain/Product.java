@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
+@Table(name = "PRODUCT")
 public class Product extends BaseEntity implements Serializable {
 
     @Id
@@ -77,10 +78,10 @@ public class Product extends BaseEntity implements Serializable {
 
     private String minorYn;
 
-    @Embedded
-    private Benefit benefit;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+//    @Embedded
+//    private Benefit benefit;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "order_id")
+//    private Order order;
 }

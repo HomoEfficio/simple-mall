@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "MEMBER")
 public class Member extends BaseEntity implements Serializable {
 
     @Id
@@ -26,6 +27,10 @@ public class Member extends BaseEntity implements Serializable {
     @Column(unique = true)
     private String uid;
 
-    @OneToMany(mappedBy = "orderer")
-    private List<Order> orders;
+//    @OneToOne
+//    @JoinColumn(name = "basket_id")
+//    private Basket basket;
+//
+//    @OneToMany(mappedBy = "orderer")
+//    private List<Order> orders;
 }

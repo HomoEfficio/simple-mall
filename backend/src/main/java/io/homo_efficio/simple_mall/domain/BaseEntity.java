@@ -28,9 +28,9 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "last_modified_at", updatable = true)
     private LocalDateTime lastModifiedDateTime;
 
-    @CreatedBy
-    private Member creator;
-
-    @LastModifiedBy
-    private Member modifier;
+//    @CreatedBy
+//    private Member creator;
+//
+//    @LastModifiedBy
+//    private Member modifier;
 }

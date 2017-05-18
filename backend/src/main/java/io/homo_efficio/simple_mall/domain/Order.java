@@ -14,16 +14,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "ORDERS")
 public class Order extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member orderer;
-
-    @OneToMany(mappedBy = "order")
-    private List<Product> products;
+//    @ManyToOne
+//    @JoinColumn(name = "member_id")
+//    private Member orderer;
+//
+//    @OneToMany(mappedBy = "order")
+//    private List<Product> products;
 }
