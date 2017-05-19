@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -34,11 +35,24 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/vuejs")
-    public String vuejs() {
-        return "vuejs";
+    // sign up을 위한 PostMapping은 별도로 만들지 않고
+    // @RepositoryRestResource 가 자동 생성해주는 컨트롤러 사용
+    // POST /members/{memberId}
+
+    @GetMapping("/sign-in/{memberId}")
+    public String signIn(@PathVariable("memberId") String memberId) {
+        // TODO: DB에서 조회 후 세션에 memberId, uid 심고 main 화면 반환
+        return "main";  // main 화면에서 memberId로 장바구니 조회해서 있으면 표시하도록
     }
 
+
+    /**
+     * 상품 검색
+     * 11번가 상품 검색 Open API 사용
+     *
+     * @param keyword
+     * @return
+     */
     @GetMapping("/search/{keyword}")
     @ResponseBody
     public DeferredResult<String> search11st(@PathVariable("keyword") String keyword) {
@@ -123,6 +137,12 @@ public class HomeController {
 //        );
 //        return keyword;
 //    }
+
+    @GetMapping("/vuejs")
+    public String vuejs() {
+        return "vuejs";
+    }
+
 
     @GetMapping("/data")
     @ResponseBody
