@@ -21,6 +21,12 @@ public class Order extends BaseEntity implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Embedded
+    @AttributeOverrides(
+            @AttributeOverride(name = "id", column = @Column(name = "orderer_id"))
+    )
+    private MemberId memberId;
+
 //    @ManyToOne
 //    @JoinColumn(name = "member_id")
 //    private Member orderer;

@@ -21,8 +21,11 @@ public class Basket {
     @Column(name = "basket_id")
     private Long id;
 
-//    @OneToOne(mappedBy = "basket")
-//    private Member member;
+    @Embedded
+    @AttributeOverrides(
+            @AttributeOverride(name = "id", column = @Column(name = "member_id"))
+    )
+    private MemberId memberId;
 
     @Embedded
     private List<BasketItem> basketItems;

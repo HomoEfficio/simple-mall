@@ -3,7 +3,9 @@ package io.homo_efficio.simple_mall.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * @author homo.efficio@gmail.com
@@ -12,9 +14,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 @Setter
-public class BasketItem {
+public class MemberId implements Serializable{
 
-    private String productCode;
-
-    private int count;
+    @Column(name = "member_id")
+    private String id;
 }
