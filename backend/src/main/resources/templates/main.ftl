@@ -8,7 +8,7 @@
 <body>
 <div id="app">
     <div class="header">
-        <h1>Vue.js Poster Store</h1>
+        <h1>Vue.js Poster Store - ${member.userName}</h1>
         <form class="searchbar" v-on:submit.prevent="onSearch">
             <input v-model="newSearch" placeholder="Search for posters">
             <input type="submit" value="Search" class="btn">
@@ -62,8 +62,10 @@
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<#--<script src="https://unpkg.com/vue"></script>-->
+<#--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
 <script src="/js/scrollMonitor.js"></script>
 <script src="/js/main.js"></script>
 </body>

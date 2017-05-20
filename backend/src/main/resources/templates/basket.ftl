@@ -38,8 +38,10 @@
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<#--<script src="https://unpkg.com/vue"></script>-->
+<#--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script src="/js/vue.min.js"></script>
+<script src="/js/axios.min.js"></script>
 <script src="/js/scrollMonitor.js"></script>
 <script src="/js/basket.js"></script>
 </body>

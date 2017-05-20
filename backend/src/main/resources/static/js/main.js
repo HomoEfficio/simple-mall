@@ -42,7 +42,7 @@ new Vue({
             if (this.newSearch.length) {
                 this.items = [];
                 this.loading = true;
-                axios.get('/search/'.concat(this.newSearch))
+                axios.get('/api/search/'.concat(this.newSearch))
                     .then(res => {
 console.log(res);
                         this.lastSearch = this.newSearch;
