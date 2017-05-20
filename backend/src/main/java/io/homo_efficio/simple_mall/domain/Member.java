@@ -24,10 +24,20 @@ public class Member extends BaseEntity implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "user_name", unique = true)
+    private String userName;
+
     @Column(unique = true)
     private String uid;
 
-//    @OneToOne
+    public Member() {
+    }
+
+    public Member(String userName) {
+        this.userName = userName;
+    }
+
+    //    @OneToOne
 //    @JoinColumn(name = "basket_id")
 //    private Basket basket;
 //

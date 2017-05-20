@@ -2,10 +2,12 @@ new Vue({
     el: '#app',
     data: {
         userName: '',
-        form: document.getElementById('sign-form'),
+        // form: document.getElementById('sign-form'),
+        form: '',
     },
     methods: {
         onSignIn(endPoint) {
+console.log('onSignIn');
             // GET /sign-in/{memberName}
             this.form.method = 'GET';
             this.form.action = endPoint + '/' + this.userName;
@@ -21,6 +23,7 @@ new Vue({
             //     });
         },
         onSignUp(endPoint) {
+console.log('onSignUp');
             // POST /members/{memberName}
             axios.post(endPoint + '/' + this.userName)
                 .then(res => {
