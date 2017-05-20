@@ -2,8 +2,10 @@ package io.homo_efficio.simple_mall.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.homo_efficio.simple_mall.domain.Member;
 import io.homo_efficio.simple_mall.domain.Product;
 import io.homo_efficio.simple_mall.dto.SearchResultContainerDto;
+import io.homo_efficio.simple_mall.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author homo.efficio@gmail.com
@@ -30,60 +35,37 @@ public class HomeController {
     @Autowired
     private ObjectMapper caseInsensitiveObjectMapper;
 
-    @GetMapping("/")
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @GetMapping(name = "/")
     public String hello() {
         return "index";
     }
+
+    @GetMapping("/sign-in/{userName}")
+    public ModelAndView signIn(@PathVariable("userName") String userName, HttpServletRequest request, ModelAndView mv) {
+        mv.setViewName("main");
+        // TODO: DB에서 조회 후 세션에 memberId, uid 심고 main 화면 반환
+        Optional<Member> memberOptional = memberRepository.findByUserName(userName);
+        memberOptional.ifPresent(
+                member -> {
+                    request.getSession().setAttribute("userName", userName);
+                    mv.addObject("member", member);
+                }
+        );
+
+        return mv;  // main 화면에서 memberId로 장바구니 조회해서 있으면 표시하도록
+    }
+
+
 
     // sign up을 위한 PostMapping은 별도로 만들지 않고
     // @RepositoryRestResource 가 자동 생성해주는 컨트롤러 사용
     // POST /members/{memberId}
 
-    @GetMapping("/sign-in/{memberId}")
-    public String signIn(@PathVariable("memberId") String memberId) {
-        // TODO: DB에서 조회 후 세션에 memberId, uid 심고 main 화면 반환
-        return "main";  // main 화면에서 memberId로 장바구니 조회해서 있으면 표시하도록
-    }
 
 
-    /**
-     * 상품 검색
-     * 11번가 상품 검색 Open API 사용
-     *
-     * @param keyword
-     * @return
-     */
-    @GetMapping("/search/{keyword}")
-    @ResponseBody
-    public DeferredResult<String> search11st(@PathVariable("keyword") String keyword) {
-        DeferredResult<String> df = new DeferredResult<>();
-
-        String apiUrl = "http://apis.skplanetx.com/11st/v2/common/products?searchKeyword=" + keyword;
-        AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("appKey", "83aeb0b1-94db-3372-9364-22a13e6b6df2");
-        httpHeaders.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set("Cache-control", "no-cache");
-        HttpEntity<String> stringHttpEntity = new HttpEntity<>(httpHeaders);
-
-        ListenableFuture<ResponseEntity<String>> lFuture = asyncRestTemplate.exchange(apiUrl, HttpMethod.GET, stringHttpEntity, String.class);
-        lFuture.addCallback(
-                result -> {
-                    try {
-                        SearchResultContainerDto searchResultContainerDto =
-                                caseInsensitiveObjectMapper.readValue(result.getBody(), SearchResultContainerDto.class);
-                        df.setResult(caseInsensitiveObjectMapper.writeValueAsString(searchResultContainerDto.getProductSearchResponse().getProducts().getProduct()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                },
-                error -> {
-                    System.out.println(error);
-                }
-        );
-
-        return df;
-    }
 
 // 아래와 같이 List<Product>를 반환하면 이상하게 클라이언트에 productCode가 넘어가지 않음
 //    @GetMapping("/search/{keyword}")
@@ -141,6 +123,11 @@ public class HomeController {
     @GetMapping("/vuejs")
     public String vuejs() {
         return "vuejs";
+    }
+
+    @GetMapping("/temp")
+    public String temp() {
+        return "/temp";
     }
 
 
